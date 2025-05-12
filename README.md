@@ -536,13 +536,13 @@ go env -w CGO_LDFLAGS="$(go env CGO_LDFLAGS) -L/usr/local/opt/openssl/lib"
 3. Find the commented out `#endif` in `sqlite3.h` and uncomment it
 4. Remove the last `#endif /* SQLITE3_H */` in `sqlite3.h`
 
-   > [!IMPORTANT]
-   > The `sqlite3-binding.h` file separates the sections for `SQLITE3_H`, `_SQLITE3RTREE_H_`, `__SQLITESESSION_H_` and `SQLITE_ENABLE_SESSION`, and `_FTS5_H`.
+> [!IMPORTANT]
+> The `sqlite3-binding.h` file separates the sections for `SQLITE3_H`, `_SQLITE3RTREE_H_`, `__SQLITESESSION_H_` and `SQLITE_ENABLE_SESSION`, and `_FTS5_H`.
 
 5. Copy the contents of `sqlite3.h` and paste it between the `#ifndef USE_LIBSQLITE3` and `#endif` in `sqlite3-binding.h`
 
-   > [!IMPORTANT]
-   > Do not modify the `SQLITE_USER_AUTHENTICATION` section in `sqlite3-binding.h`.
+> [!IMPORTANT]
+> Do not modify the `SQLITE_USER_AUTHENTICATION` section in `sqlite3-binding.h`.
 
 # License
 
