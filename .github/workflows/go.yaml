@@ -20,12 +20,16 @@ jobs:
       OS: ${{ matrix.os }}
       GO: ${{ matrix.go }}
     steps:
-      - if: startsWith(matrix.os, 'macos')
-        run: brew update
-
       - uses: actions/setup-go@v4
         with:
           go-version: ${{ matrix.go }}
+
+      - if: startsWith(matrix.os, 'macos')
+        run: |
+          brew update
+          brew install openssl
+          go env -w CGO_CFLAGS="$(go env CGO_CFLAGS) -I/usr/local/opt/openssl/include"
+          go env -w CGO_LDFLAGS="$(go env CGO_LDFLAGS) -L/usr/local/opt/openssl/lib"
 
       - name: Get Build Tools
         run: |
