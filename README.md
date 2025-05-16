@@ -531,15 +531,30 @@ go env -w CGO_LDFLAGS="$(go env CGO_LDFLAGS) -L/usr/local/opt/openssl/lib"
 
 ## Updating SQLite
 
-1. Download the latest version of [sqlite3 amalgamated](https://www.sqlite.org/download.html)
-2. Replace the contents of `sqlite3-binding.c` with `sqlite3.c`
-3. Find the commented out `#endif` in `sqlite3.h` and uncomment it
-4. Remove the last `#endif /* SQLITE3_H */` in `sqlite3.h`
+1. Clone the following repository: [sqlcipher-amalgamation](https://github.com/chehrlic/sqlcipher-amalgamation)
+2. In the `create_amalgamation.sh` script, update the version of `sqlcipher` to target (if necessary)
+3. Run `create_amalgamation.sh`
+4. Replace the contents of `sqlite3-binding.c` with the resulting `sqlite3.c`
+
+> [!IMPORTANT]
+> The following section of defines should be retained near the top of the file, just after the `SQLITE_CORE` definition:
+>
+> ```c
+> #define SQLITE_HAS_CODEC 1
+> #ifdef SQLITE_HAS_CODEC
+> #define SQLITE_EXTRA_INIT sqlcipher_extra_init
+> #define SQLITE_EXTRA_SHUTDOWN sqlcipher_extra_shutdown
+> #define SQLITE_TEMP_STORE 2 /* runtime decides if file (1) or memory (0,2) is used */
+> #endif
+> ```
+
+5. Find the commented out `#endif` in `sqlite3.h` and uncomment it
+6. Remove the last `#endif /* SQLITE3_H */` in `sqlite3.h`
 
 > [!IMPORTANT]
 > The `sqlite3-binding.h` file separates the sections for `SQLITE3_H`, `_SQLITE3RTREE_H_`, `__SQLITESESSION_H_` and `SQLITE_ENABLE_SESSION`, and `_FTS5_H`.
 
-5. Copy the contents of `sqlite3.h` and paste it between the `#ifndef USE_LIBSQLITE3` and `#endif` in `sqlite3-binding.h`
+7. Copy the contents of `sqlite3.h` and paste it between the `#ifndef USE_LIBSQLITE3` and `#endif` in `sqlite3-binding.h`
 
 > [!IMPORTANT]
 > Do not modify the `SQLITE_USER_AUTHENTICATION` section in `sqlite3-binding.h`.
