@@ -503,10 +503,10 @@ For an example, see [dinedal/go-sqlite3-extension-functions](https://github.com/
 
 ```sh
 brew update
-brew install openssl
+brew install openssl@3
 
-go env -w CGO_CFLAGS="$(go env CGO_CFLAGS) -I/usr/local/opt/openssl/include"
-go env -w CGO_LDFLAGS="$(go env CGO_LDFLAGS) -L/usr/local/opt/openssl/lib"
+go env -w CGO_CFLAGS="$(go env CGO_CFLAGS) -I/opt/homebrew/opt/openssl/include"
+go env -w CGO_LDFLAGS="$(go env CGO_LDFLAGS) -L/opt/homebrew/opt/openssl/lib"
 ```
 
 ```json
