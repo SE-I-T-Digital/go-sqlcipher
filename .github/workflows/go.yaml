@@ -31,8 +31,6 @@ jobs:
           brew install sqlite
           go env -w CGO_CFLAGS="$(go env CGO_CFLAGS) -I/opt/homebrew/opt/openssl/include"
           go env -w CGO_LDFLAGS="$(go env CGO_LDFLAGS) -L/opt/homebrew/opt/openssl/lib"
-          # Modify location of standard sqlite3 files so libsqlite3 tag build can find them
-          sed -i '' 's+usr/local+opt/homebrew+g' sqlite3_libsqlite3.go
 
       - name: Get Build Tools
         run: |
@@ -48,7 +46,9 @@ jobs:
         run: go-acc . -- -race -v -tags ""
 
       - name: 'Tags: libsqlite3'
-        run: go-acc . -- -race -v -tags "libsqlite3"
+        run: |
+          sed -i '' 's+usr/local+opt/homebrew+g' sqlite3_libsqlite3.go
+          go-acc . -- -race -v -tags "libsqlite3"
 
       - name: 'Tags: vacuum'
         run: go-acc . -- -race -v -tags "sqlite_vacuum_full"
