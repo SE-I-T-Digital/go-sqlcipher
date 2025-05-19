@@ -45,13 +45,8 @@ jobs:
       - name: 'Tags: default'
         run: go-acc . -- -race -v -tags ""
 
-      - if: startsWith(matrix.os, 'macos')
-        run: |
-          sed -i '' 's+usr/local+opt/homebrew+g' sqlite3_libsqlite3.go
-
       - name: 'Tags: libsqlite3'
-        run: |
-          go-acc . -- -race -v -tags "libsqlite3"
+        run: go-acc . -- -race -v -tags "libsqlite3"
 
       - name: 'Tags: vacuum'
         run: go-acc . -- -race -v -tags "sqlite_vacuum_full"
