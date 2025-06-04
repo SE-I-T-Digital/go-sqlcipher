@@ -20,7 +20,7 @@ Supported Golang version: See [.github/workflows/go.yaml](./.github/workflows/go
 
 This package follows the official [Golang Release Policy](https://golang.org/doc/devel/release.html#policy).
 
-Current supported version of SQLite 3: `3.45.0`
+Current supported version of SQLite 3: `3.49.2`
 
 ### Overview
 
@@ -63,6 +63,9 @@ Current supported version of SQLite 3: `3.45.0`
 - [Extensions](#extensions)
   - [Spatialite](#spatialite)
   - [extension-functions.c from SQLite3 Contrib](#extension-functionsc-from-sqlite3-contrib)
+- [Developer Instructions](#developer-instructions)
+  - [Workspace Configuration](#workspace-configuration)
+  - [Updating SQLite](#updating-sqlite)
 - [License](#license)
 - [Author](#author)
 
@@ -487,6 +490,74 @@ extension-functions.c is available as an extension to SQLite, and provides the f
 - Aggregate: stdev, variance, mode, median, lower_quartile, upper_quartile
 
 For an example, see [dinedal/go-sqlite3-extension-functions](https://github.com/dinedal/go-sqlite3-extension-functions).
+
+# Developer Instructions
+
+## Workspace Configuration
+
+1. Install `openssl`
+2. Configure `CGO_CFLAGS` and `CGO_LDFLAGS` go environment variables
+3. Update `.vscode/c_cpp_properties.json` with the `openssl` include path used in `CGO_CFLAGS`
+
+### Example for Mac OSx with homebrew
+
+```sh
+brew update
+brew install openssl@3
+
+go env -w CGO_CFLAGS="$(go env CGO_CFLAGS) -I/opt/homebrew/opt/openssl/include"
+go env -w CGO_LDFLAGS="$(go env CGO_LDFLAGS) -L/opt/homebrew/opt/openssl/lib"
+```
+
+```json
+{
+  "configurations": [
+    {
+      "name": "Mac",
+      "includePath": [
+        "${workspaceFolder}/**",
+        "/opt/homebrew/opt/openssl/include"
+      ],
+      "defines": [],
+      "compilerPath": "/usr/bin/clang",
+      "cStandard": "c17",
+      "cppStandard": "c++17",
+      "intelliSenseMode": "macos-clang-arm64"
+    }
+  ],
+  "version": 4
+}
+```
+
+## Updating SQLite
+
+1. Clone the following repository: [sqlcipher-amalgamation](https://github.com/chehrlic/sqlcipher-amalgamation)
+2. In the `create_amalgamation.sh` script, update the version of `sqlcipher` to target (if necessary)
+3. Run `create_amalgamation.sh`
+4. Replace the contents of `sqlite3-binding.c` with the resulting `sqlite3.c`
+
+> [!IMPORTANT]
+> The following section of defines should be retained near the top of the file, just after the `SQLITE_CORE` definition:
+>
+> ```c
+> #define SQLITE_HAS_CODEC 1
+> #ifdef SQLITE_HAS_CODEC
+> #define SQLITE_EXTRA_INIT sqlcipher_extra_init
+> #define SQLITE_EXTRA_SHUTDOWN sqlcipher_extra_shutdown
+> #define SQLITE_TEMP_STORE 2 /* runtime decides if file (1) or memory (0,2) is used */
+> #endif
+> ```
+
+5. Find the commented out `#endif` in `sqlite3.h` and uncomment it
+6. Remove the last `#endif /* SQLITE3_H */` in `sqlite3.h`
+
+> [!IMPORTANT]
+> The `sqlite3-binding.h` file separates the sections for `SQLITE3_H`, `_SQLITE3RTREE_H_`, `__SQLITESESSION_H_` and `SQLITE_ENABLE_SESSION`, and `_FTS5_H`.
+
+7. Copy the contents of `sqlite3.h` and paste it between the `#ifndef USE_LIBSQLITE3` and `#endif` in `sqlite3-binding.h`
+
+> [!IMPORTANT]
+> Do not modify the `SQLITE_USER_AUTHENTICATION` section in `sqlite3-binding.h`.
 
 # License
 

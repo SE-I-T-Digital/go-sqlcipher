@@ -7,3 +7,5 @@
 .vscode
 examples/
 Dockerfile
+
+coverage.txt

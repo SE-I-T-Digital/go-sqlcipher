@@ -28,6 +28,8 @@ package sqlite3
 #cgo CFLAGS: -DSQLITE_DEFAULT_WAL_SYNCHRONOUS=1
 #cgo CFLAGS: -DSQLITE_ENABLE_UPDATE_DELETE_LIMIT
 #cgo CFLAGS: -Wno-deprecated-declarations
+#cgo CFLAGS: -DHAVE_STDINT_H
+#cgo CFLAGS: -DHAVE_INTTYPES_H
 #ifndef USE_LIBSQLITE3
 #include <sqlite3-binding.h>
 #else
