@@ -1,20 +1,15 @@
-go-sqlite3
-==========
+# go-sqlcipher
 
-[![Go Reference](https://pkg.go.dev/badge/github.com/ValentinMontmirail/go-sqlcipher.svg)](https://pkg.go.dev/github.com/ValentinMontmirail/go-sqlcipher)
-[![Github Action](https://github.com/ValentinMontmirail/go-sqlcipher/actions/workflows/go.yaml/badge.svg)](https://github.com/ValentinMontmirail/go-sqlcipher/actions/workflows/go.yaml)
-[![Coverage Status](https://codecov.io/gh/ValentinMontmirail/go-sqlcipher/graph/badge.svg?token=6FK2UKVH2X)](https://codecov.io/gh/ValentinMontmirail/go-sqlcipher)
-[![Go Report Card](https://goreportcard.com/badge/github.com/ValentinMontmirail/go-sqlcipher)](https://goreportcard.com/report/github.com/ValentinMontmirail/go-sqlcipher)
-[![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=ValentinMontmirail_go-sqlcipher&metric=ncloc)](https://sonarcloud.io/summary/new_code?id=ValentinMontmirail_go-sqlcipher)
+[![Go Reference](https://pkg.go.dev/badge/github.com/SE-I-T-Digital/go-sqlcipher.svg)](https://pkg.go.dev/github.com/SE-I-T-Digital/go-sqlcipher)
+[![Github Action](https://github.com/SE-I-T-Digital/go-sqlcipher/actions/workflows/go.yaml/badge.svg)](https://github.com/SE-I-T-Digital/go-sqlcipher/actions/workflows/go.yaml)
+[![Coverage Status](https://codecov.io/gh/SE-I-T-Digital/go-sqlcipher/graph/badge.svg?token=6FK2UKVH2X)](https://codecov.io/gh/SE-I-T-Digital/go-sqlcipher)
+[![Go Report Card](https://goreportcard.com/badge/github.com/SE-I-T-Digital/go-sqlcipher)](https://goreportcard.com/report/github.com/SE-I-T-Digital/go-sqlcipher)
 
-[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=ValentinMontmirail_go-sqlcipher&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=ValentinMontmirail_go-sqlcipher)
-[![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=ValentinMontmirail_go-sqlcipher&metric=security_rating)](https://sonarcloud.io/summary/new_code?id=ValentinMontmirail_go-sqlcipher)
-[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=ValentinMontmirail_go-sqlcipher&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=ValentinMontmirail_go-sqlcipher)
-[![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=ValentinMontmirail_go-sqlcipher&metric=code_smells)](https://sonarcloud.io/summary/new_code?id=ValentinMontmirail_go-sqlcipher)
+[`go-sqlite3`](https://github.com/mattn/go-sqlite3) ➕ [`sqlcipher`](https://github.com/sqlcipher/sqlcipher)
 
-# Description
+## Description
 
-A sqlite3 driver that conforms to the built-in database/sql interface.
+A sqlite3 driver that conforms to the built-in `database/sql` interface.
 
 Supported Golang version: See [.github/workflows/go.yaml](./.github/workflows/go.yaml).
 
@@ -24,16 +19,16 @@ Current supported version of SQLite 3: `3.49.2`
 
 ### Overview
 
-- [go-sqlite3](#go-sqlite3)
+- [go-sqlcipher](#go-sqlcipher)
 - [Description](#description)
-    - [Overview](#overview)
+  - [Overview](#overview)
 - [Installation](#installation)
 - [API Reference](#api-reference)
 - [Connection String](#connection-string)
   - [DSN Examples](#dsn-examples)
 - [Features](#features)
-    - [Usage](#usage)
-    - [Feature / Extension List](#feature--extension-list)
+  - [Usage](#usage)
+  - [Feature / Extension List](#feature--extension-list)
 - [Compilation](#compilation)
   - [Android](#android)
 - [ARM](#arm)
@@ -49,7 +44,7 @@ Current supported version of SQLite 3: `3.49.2`
   - [Errors](#errors)
 - [User Authentication](#user-authentication)
   - [Compile](#compile)
-  - [Usage](#usage-1)
+  - [Usage](#user-authentication-usage)
     - [Create protected database](#create-protected-database)
     - [Password Encoding](#password-encoding)
       - [Available Encoders](#available-encoders)
@@ -67,27 +62,30 @@ Current supported version of SQLite 3: `3.49.2`
   - [Workspace Configuration](#workspace-configuration)
   - [Updating SQLite](#updating-sqlite)
 - [License](#license)
-- [Author](#author)
+- [Authors](#authors)
 
-# Installation
+## Installation
 
 This package can be installed with the `go get` command:
 
-    go get github.com/ValentinMontmirail/go-sqlcipher
+```bash
+go get github.com/SE-I-T-Digital/go-sqlcipher
+```
 
-_go-sqlite3_ is *cgo* package.
-If you want to build your app using go-sqlite3, you need gcc.
-However, after you have built and installed _go-sqlite3_ with `go install github.com/ValentinMontmirail/go-sqlcipher` (which requires gcc), you can build your app without relying on gcc in future.
+_go-sqlite3_ is _cgo_ package.
+If you want to build your app using go-sqlite3, you need `gcc`.
+However, after you have built and installed _go-sqlite3_ with `go install github.com/SE-I-T-Digital/go-sqlcipher` (which requires gcc), you can build your app without relying on gcc in future.
 
-***Important: because this is a `CGO` enabled package, you are required to set the environment variable `CGO_ENABLED=1` and have a `gcc` compile present within your path.***
+> [!IMPORTANT]
+> Because this is a `CGO` enabled package, you are required to set the environment variable `CGO_ENABLED=1` and have a `gcc` compile present within your path.
 
-# API Reference
+## API Reference
 
-API documentation can be found [here](http://godoc.org/github.com/ValentinMontmirail/go-sqlcipher).
+API documentation can be found on [pkg.go.dev](https://pkg.go.dev/github.com/SE-I-T-Digital/go-sqlcipher).
 
 Examples can be found under the [examples](./_example) directory.
 
-# Connection String
+## Connection String
 
 When creating a new SQLite database or connection to an existing one, with the file name additional options can be given.
 This is also known as a DSN (Data Source Name) string.
@@ -103,8 +101,9 @@ Options can be given using the following format: `KEYWORD=VALUE` and multiple op
 This library supports DSN options of SQLite itself and provides additional options.
 
 Boolean values can be one of:
-* `0` `no` `false` `off`
-* `1` `yes` `true` `on`
+
+- `0` `no` `false` `off`
+- `1` `yes` `true` `on`
 
 | Name | Key | Value(s) | Description |
 |------|-----|----------|-------------|
@@ -134,18 +133,17 @@ Boolean values can be one of:
 | Writable Schema | `_writable_schema` | `Boolean` | When this pragma is on, the SQLITE_MASTER tables in which database can be changed using ordinary UPDATE, INSERT, and DELETE statements. Warning: misuse of this pragma can easily result in a corrupt database file. |
 | Cache Size | `_cache_size` | `int` | Maximum cache size; default is 2000K (2M). See [PRAGMA cache_size](https://sqlite.org/pragma.html#pragma_cache_size) |
 
+### DSN Examples
 
-## DSN Examples
-
-```
+```txt
 file:test.db?cache=shared&mode=memory
 ```
 
-# Features
+## Features
 
 This package allows additional configuration of features available within SQLite3 to be enabled or disabled by golang build constraints also known as build `tags`.
 
-Click [here](https://golang.org/pkg/go/build/#hdr-Build_Constraints) for more information about build tags / constraints.
+Click for more information about [build tags / constraints](https://golang.org/pkg/go/build/#hdr-Build_Constraints).
 
 ### Usage
 
@@ -173,7 +171,7 @@ go build -tags "icu json1 fts5 secure_delete"
 | App Armor | sqlite_app_armor | When defined, this C-preprocessor macro activates extra code that attempts to detect misuse of the SQLite API, such as passing in NULL pointers to required parameters or using objects after they have been destroyed. <br><br>App Armor is not available under `Windows`. |
 | Disable Load Extensions | sqlite_omit_load_extension | Loading of external extensions is enabled by default.<br><br>To disable extension loading add the build tag `sqlite_omit_load_extension`. |
 | Enable Serialization with `libsqlite3` | sqlite_serialize | Serialization and deserialization of a SQLite database is available by default, unless the build tag `libsqlite3` is set.<br><br>To enable this functionality even if `libsqlite3` is set, add the build tag `sqlite_serialize`. |
-| Foreign Keys | sqlite_foreign_keys | This macro determines whether enforcement of foreign key constraints is enabled or disabled by default for new database connections.<br><br>Each database connection can always turn enforcement of foreign key constraints on and off and run-time using the foreign_keys pragma.<br><br>Enforcement of foreign key constraints is normally off by default, but if this compile-time parameter is set to 1, enforcement of foreign key constraints will be on by default | 
+| Foreign Keys | sqlite_foreign_keys | This macro determines whether enforcement of foreign key constraints is enabled or disabled by default for new database connections.<br><br>Each database connection can always turn enforcement of foreign key constraints on and off and run-time using the foreign_keys pragma.<br><br>Enforcement of foreign key constraints is normally off by default, but if this compile-time parameter is set to 1, enforcement of foreign key constraints will be on by default |
 | Full Auto Vacuum | sqlite_vacuum_full | Set the default auto vacuum to full |
 | Incremental Auto Vacuum | sqlite_vacuum_incr | Set the default auto vacuum to incremental |
 | Full Text Search Engine | sqlite_fts5 | When this option is defined in the amalgamation, versions 5 of the full-text search engine (fts5) is added to the build automatically |
@@ -187,15 +185,15 @@ go build -tags "icu json1 fts5 secure_delete"
 | Secure Delete (FAST) | sqlite_secure_delete_fast | For more information see [PRAGMA secure_delete](https://www.sqlite.org/pragma.html#pragma_secure_delete) |
 | Tracing / Debug | sqlite_trace | Activate trace functions |
 | User Authentication | sqlite_userauth | SQLite User Authentication see [User Authentication](#user-authentication) for more information. |
-| Virtual Tables | sqlite_vtable | SQLite Virtual Tables see [SQLite Official VTABLE Documentation](https://www.sqlite.org/vtab.html) for more information, and a [full example here](https://github.com/ValentinMontmirail/go-sqlcipher/tree/master/_example/vtable) |
+| Virtual Tables | sqlite_vtable | SQLite Virtual Tables see [SQLite Official VTABLE Documentation](https://www.sqlite.org/vtab.html) for more information, and a [full example here](https://github.com/mattn/go-sqlite3/tree/master/_example/vtable) |
 
-# Compilation
+## Compilation
 
 This package requires the `CGO_ENABLED=1` environment variable if not set by default, and the presence of the `gcc` compiler.
 
 If you need to add additional CFLAGS or LDFLAGS to the build command, and do not want to modify this package, then this can be achieved by using the `CGO_CFLAGS` and `CGO_LDFLAGS` environment variables.
 
-## Android
+### Android
 
 This package can be compiled for android.
 Compile with:
@@ -204,9 +202,9 @@ Compile with:
 go build -tags "android"
 ```
 
-For more information see [#201](https://github.com/ValentinMontmirail/go-sqlcipher/issues/201)
+For more information see [#201](https://github.com/mattn/go-sqlite3/issues/201)
 
-# ARM
+### ARM
 
 To compile for `ARM` use the following environment:
 
@@ -217,31 +215,34 @@ env CC=arm-linux-gnueabihf-gcc CXX=arm-linux-gnueabihf-g++ \
 ```
 
 Additional information:
-- [#242](https://github.com/ValentinMontmirail/go-sqlcipher/issues/242)
-- [#504](https://github.com/ValentinMontmirail/go-sqlcipher/issues/504)
 
-# Cross Compile
+- [#242](https://github.com/mattn/go-sqlite3/issues/242)
+- [#504](https://github.com/mattn/go-sqlite3/issues/504)
+
+### Cross Compile
 
 This library can be cross-compiled.
 
 In some cases you are required to the `CC` environment variable with the cross compiler.
 
-## Cross Compiling from macOS
+#### Cross Compiling from macOS
+
 The simplest way to cross compile from macOS is to use [xgo](https://github.com/karalabe/xgo).
 
 Steps:
+
 - Install [musl-cross](https://github.com/FiloSottile/homebrew-musl-cross) (`brew install FiloSottile/musl-cross/musl-cross`).
 - Run `CC=x86_64-linux-musl-gcc CXX=x86_64-linux-musl-g++ GOARCH=amd64 GOOS=linux CGO_ENABLED=1 go build -ldflags "-linkmode external -extldflags -static"`.
 
 Please refer to the project's [README](https://github.com/FiloSottile/homebrew-musl-cross#readme) for further information.
 
-# Google Cloud Platform
+### Google Cloud Platform
 
 Building on GCP is not possible because Google Cloud Platform does not allow `gcc` to be executed.
 
 Please work only with compiled final binaries.
 
-## Linux
+### Linux
 
 To compile this package on Linux, you must install the development tools for your linux distribution.
 
@@ -253,31 +254,31 @@ go build -tags "linux"
 
 If you wish to link directly to libsqlite3 then you can use the `libsqlite3` build tag.
 
-```
+```bash
 go build -tags "libsqlite3 linux"
 ```
 
-### Alpine
+#### Alpine
 
 When building in an `alpine` container  run the following command before building:
 
-```
+```bash
 apk add --update gcc musl-dev
 ```
 
-### Fedora
+#### Fedora
 
 ```bash
 sudo yum groupinstall "Development Tools" "Development Libraries"
 ```
 
-### Ubuntu
+#### Ubuntu
 
 ```bash
 sudo apt-get install build-essential
 ```
 
-## macOS
+### macOS
 
 macOS should have all the tools present to compile this package. If not, install XCode to add all the developers tools.
 
@@ -309,7 +310,7 @@ go build -tags "darwin arm64"
 
 If you wish to link directly to libsqlite3, use the `libsqlite3` build tag:
 
-```
+```zsh
 # x86 
 go build -tags "libsqlite3 darwin amd64"
 # ARM
@@ -317,21 +318,22 @@ go build -tags "libsqlite3 darwin arm64"
 ```
 
 Additional information:
-- [#206](https://github.com/ValentinMontmirail/go-sqlcipher/issues/206)
-- [#404](https://github.com/ValentinMontmirail/go-sqlcipher/issues/404)
+
+- [#206](https://github.com/mattn/go-sqlite3/issues/206)
+- [#404](https://github.com/mattn/go-sqlite3/issues/404)
 
 ## Windows
 
 To compile this package on Windows, you must have the `gcc` compiler installed.
 
-1) Install a Windows `gcc` toolchain.
-2) Add the `bin` folder to the Windows path, if the installer did not do this by default.
-3) Open a terminal for the TDM-GCC toolchain, which can be found in the Windows Start menu.
-4) Navigate to your project folder and run the `go build ...` command for this package.
+1. Install a Windows `gcc` toolchain.
+2. Add the `bin` folder to the Windows path, if the installer did not do this by default.
+3. Open a terminal for the TDM-GCC toolchain, which can be found in the Windows Start menu.
+4. Navigate to your project folder and run the `go build ...` command for this package.
 
-For example the TDM-GCC Toolchain can be found [here](https://jmeubank.github.io/tdm-gcc/).
+See the [TDM-GCC Toolchain](https://jmeubank.github.io/tdm-gcc/).
 
-## Errors
+### Errors
 
 - Compile error: `can not be used when making a shared object; recompile with -fPIC`
 
@@ -344,34 +346,34 @@ For example the TDM-GCC Toolchain can be found [here](https://jmeubank.github.io
     go build -ldflags '-extldflags=-fno-PIC'
     ```
 
-    More details see [#120](https://github.com/ValentinMontmirail/go-sqlcipher/issues/120)
+    More details see [#120](https://github.com/mattn/go-sqlite3/issues/120)
 
 - Can't build go-sqlite3 on windows 64bit.
 
     > Probably, you are using go 1.0, go1.0 has a problem when it comes to compiling/linking on windows 64bit.
-    > See: [#27](https://github.com/ValentinMontmirail/go-sqlcipher/issues/27)
+    > See: [#27](https://github.com/mattn/go-sqlite3/issues/27)
 
-- `go get github.com/ValentinMontmirail/go-sqlcipher` throws compilation error.
+- `go get github.com/SE-I-T-Digital/go-sqlcipher` throws compilation error.
 
     `gcc` throws: `internal compiler error`
 
     Remove the download repository from your disk and try re-install with:
 
     ```bash
-    go install github.com/ValentinMontmirail/go-sqlcipher
+    go install github.com/SE-I-T-Digital/go-sqlcipher
     ```
 
-# User Authentication
+## User Authentication
 
 This package supports the SQLite User Authentication module.
 
-## Compile
+### Compile
 
 To use the User authentication module, the package has to be compiled with the tag `sqlite_userauth`. See [Features](#features).
 
-## Usage
+### User Authentication Usage
 
-### Create protected database
+#### Create protected database
 
 To create a database protected by user authentication, provide the following argument to the connection string `_auth`.
 This will enable user authentication within the database. This option however requires two additional arguments:
@@ -392,7 +394,7 @@ Create an user authentication database with user `admin` and password `admin` an
 
 `file:test.s3db?_auth&_auth_user=admin&_auth_pass=admin&_auth_crypt=sha1`
 
-### Password Encoding
+#### Password Encoding
 
 The passwords within the user authentication module of SQLite are encoded with the SQLite function `sqlite_cryp`.
 This function uses a ceasar-cypher which is quite insecure.
@@ -412,11 +414,11 @@ salt this can be configured with `_auth_salt`.
 - SHA512
 - SSHA512 (salted SHA512)
 
-### Restrictions
+#### Restrictions
 
 Operations on the database regarding user management can only be preformed by an administrator user.
 
-### Support
+#### Support
 
 The user authentication supports two kinds of users:
 
@@ -472,16 +474,16 @@ The following functions are available for User authentication from the `*SQLiteC
 
 When using attached databases, SQLite will use the authentication from the `main` database for the attached database(s).
 
-# Extensions
+## Extensions
 
 If you want your own extension to be listed here, or you want to add a reference to an extension; please submit an Issue for this.
 
-## Spatialite
+### Spatialite
 
 Spatialite is available as an extension to SQLite, and can be used in combination with this repository.
 For an example, see [shaxbee/go-spatialite](https://github.com/shaxbee/go-spatialite).
 
-## extension-functions.c from SQLite3 Contrib
+### extension-functions.c from SQLite3 Contrib
 
 extension-functions.c is available as an extension to SQLite, and provides the following functions:
 
@@ -491,15 +493,15 @@ extension-functions.c is available as an extension to SQLite, and provides the f
 
 For an example, see [dinedal/go-sqlite3-extension-functions](https://github.com/dinedal/go-sqlite3-extension-functions).
 
-# Developer Instructions
+## Developer Instructions
 
-## Workspace Configuration
+### Workspace Configuration
 
 1. Install `openssl`
 2. Configure `CGO_CFLAGS` and `CGO_LDFLAGS` go environment variables
 3. Update `.vscode/c_cpp_properties.json` with the `openssl` include path used in `CGO_CFLAGS`
 
-### Example for Mac OSx with homebrew
+#### Example for Mac OSx with homebrew
 
 ```sh
 brew update
@@ -529,7 +531,7 @@ go env -w CGO_LDFLAGS="$(go env CGO_LDFLAGS) -L/opt/homebrew/opt/openssl/lib"
 }
 ```
 
-## Updating SQLite
+### Updating SQLite
 
 1. Clone the following repository: [sqlcipher-amalgamation](https://github.com/chehrlic/sqlcipher-amalgamation)
 2. In the `create_amalgamation.sh` script, update the version of `sqlcipher` to target (if necessary)
@@ -559,18 +561,19 @@ go env -w CGO_LDFLAGS="$(go env CGO_LDFLAGS) -L/opt/homebrew/opt/openssl/lib"
 > [!IMPORTANT]
 > Do not modify the `SQLITE_USER_AUTHENTICATION` section in `sqlite3-binding.h`.
 
-# License
+## License
 
-MIT: http://mattn.mit-license.org/2018
+MIT: [Original](http://mattn.mit-license.org/2018)
 
-sqlite3-binding.c, sqlite3-binding.h, sqlite3ext.h
+### sqlite3-binding.c, sqlite3-binding.h, sqlite3ext.h
 
-The -binding suffix was added to avoid build failures under gccgo.
+The `-binding` suffix was added to avoid build failures under gccgo.
 
 In this repository, those files are an amalgamation of code that was copied from SQLite3. The license of that code is the same as the license of SQLite3.
 
-# Author
+## Authors
 
-Yasuhiro Matsumoto (a.k.a mattn)
-G.J.R. Timmer
-Valentin Montmirail
+- Yasuhiro Matsumoto (a.k.a mattn)
+- G.J.R. Timmer
+- Valentin Montmirail
+- SE-I-T-Digital
