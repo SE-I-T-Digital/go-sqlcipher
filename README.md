@@ -15,9 +15,9 @@ Supported Golang version: See [.github/workflows/go.yaml](./.github/workflows/go
 
 This package follows the official [Golang Release Policy](https://golang.org/doc/devel/release.html#policy).
 
-Current version of `sqlite3`: `3.50.4`
+Current version of `sqlite3`: `3.53.1`
 
-Current version of `sqlcipher`: `4.10.0`
+Current version of `sqlcipher`: `4.16.0`
 
 ### Overview
 
